@@ -1,0 +1,447 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>POC </title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/typicons/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/simple-line-icons/css/simple-line-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'js/select.dataTables.min.css' %}">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+</head>
+<style>
+  .box {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(107, 26, 26, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+
+  }
+
+  .row.custom-row {
+    margin-bottom: 15px;
+  }
+
+  .col-md-4 {
+    padding: 0 10px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+</style>
+
+<body class="with-welcome-text">
+  <div class="container-scroller">
+    <div class="row p-0 m-0 proBanner" id="proBanner">
+      <div class="col-md-12 p-0 m-0">
+       
+      </div>
+    </div>
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <div class="me-3">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+            <span class="icon-menu"></span>
+          </button>
+        </div>
+        <div>
+          <a class="navbar-brand brand-logo" href="index.html">
+            <!-- <img src="assets/images/logo.svg" alt="logo" /> -->
+            <h1>POC</h1>
+          </a>
+          <a class="navbar-brand brand-logo-mini" href="index.html">
+            <!-- <img src="assets/images/logo-mini.svg" alt="logo" /> -->
+            <h4>POC</h4>
+          </a>
+        </div>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-top">
+        <ul class="navbar-nav">
+          <li class="nav-item fw-semibold d-none d-lg-block ms-0">
+            <!-- <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1> -->
+            <!-- <h3 class="welcome-sub-text">Your performance summary this week </h3> -->
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown d-none d-lg-block">
+            <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#"
+              data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+              aria-labelledby="messageDropdown">
+              <!-- <a class="dropdown-item py-3">
+                  <p class="mb-0 fw-medium float-start">Select category</p>
+                </a> -->
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-item-content flex-grow py-2">
+                  <p class="preview-subject ellipsis fw-medium text-dark">Approved</p>
+
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-item-content flex-grow py-2">
+                  <p class="preview-subject ellipsis fw-medium text-dark">Unapproved</p>
+
+                </div>
+              </a>
+
+            </div>
+          </li>
+          <li class="nav-item d-none d-lg-block">
+            <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+              <span class="input-group-addon input-group-prepend border-right">
+                <span class="icon-calendar input-group-text calendar-icon"></span>
+              </span>
+              <input type="text" class="form-control">
+            </div>
+          </li>
+          <li class="nav-item">
+          
+              <i class="icon-search"></i>
+              <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+           
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+              <i class="icon-bell"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+              aria-labelledby="notificationDropdown">
+              <a class="dropdown-item py-3 border-bottom">
+                <p class="mb-0 fw-medium float-start">You have 4 new notifications </p>
+                <span class="badge badge-pill badge-primary float-end">View all</span>
+              </a>
+              <a class="dropdown-item preview-item py-3">
+                <div class="preview-thumbnail">
+                  <i class="mdi mdi-alert m-auto text-primary"></i>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject fw-normal text-dark mb-1">Application Error</h6>
+                  <p class="fw-light small-text mb-0"> Just now </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item py-3">
+                <div class="preview-thumbnail">
+                  <i class="mdi mdi-lock-outline m-auto text-primary"></i>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject fw-normal text-dark mb-1">Settings</h6>
+                  <p class="fw-light small-text mb-0"> Private message </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item py-3">
+                <div class="preview-thumbnail">
+                  <i class="mdi mdi-airballoon m-auto text-primary"></i>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject fw-normal text-dark mb-1">New user registration</h6>
+                  <p class="fw-light small-text mb-0"> 2 days ago </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="icon-mail icon-lg"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+              aria-labelledby="countDropdown">
+              <a class="dropdown-item py-3">
+                <p class="mb-0 fw-medium float-start">You have 7 unread mails </p>
+                <span class="badge badge-pill badge-primary float-end">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="{% static 'images/faces/face10.jpg' %}" alt="image" class="img-sm profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow py-2">
+                  <p class="preview-subject ellipsis fw-medium text-dark">Marian Garner </p>
+                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="{% static 'images/faces/face12.jpg' %}" alt="image" class="img-sm profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow py-2">
+                  <p class="preview-subject ellipsis fw-medium text-dark">David Grey </p>
+                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="{% static 'images/faces/face1.jpg' %}" alt="image" class="img-sm profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow py-2">
+                  <p class="preview-subject ellipsis fw-medium text-dark">Travis Jenkins </p>
+                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+            <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="img-xs rounded-circle" src="{% static 'images/faces/face8.jpg' %}" alt="Profile image"> </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <div class="dropdown-header text-center">
+                <img class="img-md rounded-circle" src="{% static 'images/faces/face8.jpg' %}" alt="Profile image">
+                <p class="mb-1 mt-3 fw-semibold">Allen Moreno</p>
+                <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+              </div>
+              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My
+                Profile <span class="badge badge-pill badge-danger">1</span></a>
+              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
+                Messages</a>
+              <a class="dropdown-item"><i
+                  class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
+              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
+                FAQ</a>
+              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-bs-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="mdi mdi-grid-large menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item nav-category">View all</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+              aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-floor-plan"></i>
+              <span class="menu-title">View all</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/viewdata">View Page</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/work_completed">work completed</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/lpo_received">lpo received</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/not_invoiced_tasks">not invoiced tasks</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/invoiced_tasks">invoiced tasks</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/logout">Logout</a></li>
+
+              </ul>
+            </div>
+          </li>
+         
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel"> 
+        <form method="post">
+          {% csrf_token %}
+        <section class="container box"> 
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Area</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Area }}" placeholder="Area" name="Area">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Category</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Category }}" placeholder="Category"name="Category">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Email Subject</label>
+              <input type="text" class="form-control" value="{{ Hemnath.EmailSubject }}" placeholder="Email Subject"name="EmailSubject">
+            </div>
+
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Client</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Client }}" placeholder="Client"name="Client">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Attention</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Attention }}" placeholder="Attention"name="Attention">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Site Eng</label>
+              <input type="text" class="form-control" value="{{ Hemnath.SiteEng }}" placeholder="Site Eng"name="SiteEng">
+            </div>
+
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Approved By</label>
+              <input type="text" class="form-control" value="{{ Hemnath.ApprovedBy }}" placeholder="Approved By"name="ApprovedBy">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Complain registered date</label>
+              <input type="date" class="form-control" value="{{ Hemnath.registereddate }}" placeholder="Complain registered date"name="registereddate">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Approved Date</label>
+              <input type="date" class="form-control" value="{{ Hemnath.ApprovedDate }}" placeholder="Approved Date"name="ApprovedDate">
+            </div>
+
+          </div>
+
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Approved price</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Approvedprice }}" placeholder="Approved price"name="Approvedprice">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Quotation Ref</label>
+              <input type="text" class="form-control" value="{{ Hemnath.QuotationRef }}" placeholder="Quotation Ref"name="QuotationRef">
+            </div>
+            <div class="col-md-4">
+              <label for="text">QT Date</label>
+              <input type="date" class="form-control" value="{{ Hemnath.QTDate }}" placeholder="QT Date"name="QTDate">
+            </div>
+          </div>
+
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">UBS No</label>
+              <input type="text" class="form-control" value="{{ Hemnath.UBSNo }}" placeholder="UBS No"name="UBSNo">
+            </div>
+            <div class="col-md-4">
+              <label for="text">property</label>
+              <input type="text" class="form-control" value="{{ Hemnath.property }}" placeholder="property"name="property">
+            </div>
+            <div class="col-md-4">
+              <label for="text">unit</label>
+              <input type="text" class="form-control" value="{{ Hemnath.unit }}" placeholder="unit"name="unit">
+            </div>
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Descriptions</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Descriptions }}" placeholder="Descriptions"name="Descriptions">
+            </div>
+            <div class="col-md-4">
+              <label for="text">AED</label>
+              <input type="text" class="form-control" value="{{ Hemnath.AED }}" placeholder="AED"name="AED">
+            </div>
+            <div class="col-md-4">
+                <label for="Status">Status:</label>
+                <select name="Status" class="form-control" id="Status">
+                    <option value="work_completed" {% if hemnath.Status == 'work_completed' %}selected{% endif %}>Work Completed -> LPO not yet received</option>
+                    <option value="lpo_received" {% if hemnath.Status == 'lpo_received' %}selected{% endif %}>LPO received -> Work still pending</option>
+                    <option value="not_invoiced" {% if hemnath.Status == 'not_invoiced' %}selected{% endif %}>Not invoiced tasks</option>
+                    <option value="invoiced" {% if hemnath.Status == 'invoiced' %}selected{% endif %}>Invoiced tasks</option>
+                </select>
+            </div>
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">SR date</label>
+              <input type="date" class="form-control" value="{{ Hemnath.SRdate }}" placeholder="SR date"name="SRdate">
+            </div>
+            <div class="col-md-4">
+              <label for="text">LPO</label>
+              <input type="text" class="form-control" value="{{ Hemnath.LPO }}" placeholder="LPO"name="LPO">
+            </div>
+            <div class="col-md-4">
+              <label for="text">LPO  Ref</label>
+              <input type="text" class="form-control" value="{{ Hemnath.LPORef }}" placeholder="LPO  Ref"name="LPORef">
+            </div>
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Invoice Ref#</label>
+              <input type="text" class="form-control" value="{{ Hemnath.InvoiceRef }}" placeholder="Invoice Ref#"name="InvoiceRef">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Invoice</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Invoice }}" placeholder="Invoice " name="Invoice">
+            </div>
+            <div class="col-md-4">
+              <label for="text">REMARK</label>
+              <input type="text" class="form-control" value="{{ Hemnath.REMARK }}" placeholder="REMARK"name="REMARK">
+            </div>
+          </div>
+          <div class="row custom-row">
+            <div class="col-md-4">
+              <label for="text">Email LPO</label>
+              <input type="text" class="form-control" value="{{ Hemnath.EmailLPO }}" placeholder="Email LPO"name="EmailLPO">
+            </div>
+            <div class="col-md-4">
+              <label for="text">Note</label>
+              <input type="text" class="form-control" value="{{ Hemnath.Note }}" placeholder="Note "name="Note">
+            </div>
+
+          </div>
+          <div class="text-end">
+            <button id="submitBtn" class="btn btn-info">
+              <i class="fas fa-paper-plane"></i> Submit
+          </button>
+
+          </div>
+       
+        </section>
+
+      </form>
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <br>
+    <footer class="footer">
+      <div class="d-sm-flex justify-content-center ">
+        <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span> -->
+        <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights
+          reserved.</span>
+      </div>
+    </footer>
+
+    <!-- page-body-wrapper ends -->
+  </div>
+
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'vendors/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'vendors/progressbar.js/progressbar.min.js' %}"></script>
+ 
+</body>
+
+</html>

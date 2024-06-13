@@ -1,0 +1,535 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Poc </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'vendors/feather/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/ti-icons/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/typicons/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/simple-line-icons/css/simple-line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  </head>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+  
+      box-sizing: border-box;
+      font-family: sans-serif;
+  }
+  @media print {
+   .table, .table__body {
+    overflow: visible;
+    height: auto !important;
+    width: auto !important;
+   }
+  }
+  
+  /*@page {
+      size: landscape;
+      margin: 0; 
+  }*/
+  
+  body {
+      min-height: 100vh;
+      background: url(images/html_table.jpg) center / cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  main.table {
+      width: 82vw;
+      height: 90vh;
+      background-color: #fff5;
+  
+      backdrop-filter: blur(7px);
+      box-shadow: 0 .4rem .8rem #0005;
+      border-radius: .8rem;
+  
+      overflow: hidden;
+  }
+  
+  .table__header {
+      width: 100%;
+      height: 10%;
+      background-color: #fff4;
+      padding: .8rem 1rem;
+  
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .table__header .input-group {
+      width: 35%;
+      height: 100%;
+      background-color: #fff5;
+      padding: 0 .8rem;
+      border-radius: 2rem;
+  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      transition: .2s;
+  }
+  
+  .table__header .input-group:hover {
+      width: 45%;
+      background-color: #fff8;
+      box-shadow: 0 .1rem .4rem #0002;
+  }
+  
+  .table__header .input-group img {
+      width: 1.2rem;
+      height: 1.2rem;
+  }
+  
+  .table__header .input-group input {
+      width: 100%;
+      padding: 0 .5rem 0 .3rem;
+      background-color: transparent;
+      border: none;
+      outline: none;
+  }
+  
+  .table__body {
+      width: 95%;
+      max-height: calc(89% - 1.6rem);
+      background-color: #fffb;
+  
+      margin: .8rem auto;
+      border-radius: .6rem;
+  
+      overflow: auto;
+      overflow: overlay;
+  }
+  
+  
+  .table__body::-webkit-scrollbar{
+      width: 0.5rem;
+      height: 0.5rem;
+  }
+  
+  .table__body::-webkit-scrollbar-thumb{
+      border-radius: .5rem;
+      background-color: #0004;
+      visibility: hidden;
+  }
+  
+  .table__body:hover::-webkit-scrollbar-thumb{ 
+      visibility: visible;
+  }
+  
+  
+  table {
+      width: 100%;
+  }
+  
+  td img {
+      width: 36px;
+      height: 36px;
+      margin-right: .5rem;
+      border-radius: 50%;
+  
+      vertical-align: middle;
+  }
+  
+  table, th, td {
+      border-collapse: collapse;
+      padding: 1rem;
+      text-align: left;
+  }
+  
+  thead th {
+      position: sticky;
+      top: 0;
+      left: 0;
+      background-color: #d5d1defe;
+      cursor: pointer;
+      text-transform: capitalize;
+  }
+  
+  tbody tr:nth-child(even) {
+      background-color: #0000000b;
+  }
+  
+  tbody tr {
+      --delay: .1s;
+      transition: .5s ease-in-out var(--delay), background-color 0s;
+  }
+  
+  tbody tr.hide {
+      opacity: 0;
+      transform: translateX(100%);
+  }
+  
+  tbody tr:hover {
+      background-color: #fff6 !important;
+  }
+  
+  tbody tr td,
+  tbody tr td p,
+  tbody tr td img {
+      transition: .2s ease-in-out;
+  }
+  
+  tbody tr.hide td,
+  tbody tr.hide td p {
+      padding: 0;
+      font: 0 / 0 sans-serif;
+      transition: .2s ease-in-out .5s;
+  }
+  
+  tbody tr.hide td img {
+      width: 0;
+      height: 0;
+      transition: .2s ease-in-out .5s;
+  }
+  
+  .status {
+      padding: .4rem 0;
+      border-radius: 2rem;
+      text-align: center;
+  }
+  
+  .status.delivered {
+      background-color: #86e49d;
+      color: #006b21;
+  }
+  
+  .status.cancelled {
+      background-color: #d893a3;
+      color: #b30021;
+  }
+  
+  .status.pending {
+      background-color: #ebc474;
+  }
+  
+  .status.shipped {
+      background-color: #6fcaea;
+  }
+  
+  
+  @media (max-width: 1000px) {
+      td:not(:first-of-type) {
+          min-width: 12.1rem;
+      }
+  }
+  
+  thead th span.icon-arrow {
+      display: inline-block;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      border: 1.4px solid transparent;
+      
+      text-align: center;
+      font-size: 1rem;
+      
+      margin-left: .5rem;
+      transition: .2s ease-in-out;
+  }
+  
+  thead th:hover span.icon-arrow{
+      border: 1.4px solid #6c00bd;
+  }
+  
+  thead th:hover {
+      color: #6c00bd;
+  }
+  
+  thead th.active span.icon-arrow{
+      background-color: #6c00bd;
+      color: #fff;
+  }
+  
+  thead th.asc span.icon-arrow{
+      transform: rotate(180deg);
+  }
+  
+  thead th.active,tbody td.active {
+      color: #6c00bd;
+  }
+  
+
+  </style>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:../../partials/_navbar.html -->
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <div class="me-3">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+              <span class="icon-menu"></span>
+            </button>
+          </div>
+          <div>
+            <a class="navbar-brand brand-logo" href="index.html">
+              <!-- <img src="assets/images/logo.svg" alt="logo" /> -->
+              <h1>POC</h1>
+            </a>
+            <a class="navbar-brand brand-logo-mini" href="index.html">
+              <!-- <img src="assets/images/logo-mini.svg" alt="logo" /> -->
+              <h4>POC</h4>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-top">
+          <ul class="navbar-nav">
+            <li class="nav-item fw-semibold d-none d-lg-block ms-0">
+              <!-- <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1> -->
+              <!-- <h3 class="welcome-sub-text">Your performance summary this week </h3> -->
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown d-none d-lg-block">
+               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+                <!-- <a class="dropdown-item py-3">
+                  <p class="mb-0 fw-medium float-start">Select category</p>
+                </a> -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis fw-medium text-dark">Approved</p>
+               
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis fw-medium text-dark">Unapproved</p>
+                   
+                  </div>
+                </a>
+                <!-- <a class="dropdown-item preview-item">
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis fw-medium text-dark">VUE Bundle</p>
+                    <p class="fw-light small-text mb-0">Bundle of 6 Premium Vue Admin Dashboard</p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis fw-medium text-dark">React Bundle</p>
+                    <p class="fw-light small-text mb-0">Bundle of 8 Premium React Admin Dashboard</p>
+                  </div>
+                </a> -->
+              </div>
+            </li>
+            <li class="nav-item d-none d-lg-block">
+              <div class="container mt-">
+                <div class="row custom-row">
+                   <!-- Add this code to your template -->
+
+
+
+                </div>
+                
+            </div>
+        
+            </li>
+        
+           
+          
+      
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="mdi mdi-grid-large menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item nav-category">View all</li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-floor-plan"></i>
+                <span class="menu-title">View all</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="/viewdata">View Page</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/work_completed">work completed</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/lpo_received">lpo received</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/not_invoiced_tasks">not invoiced tasks</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/invoiced_tasks">invoiced tasks</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/logout">Logout</a></li>
+  
+                </ul>
+              </div>
+            </li>
+           
+          </ul>
+        </nav>
+
+        <div class="main-panel">
+         
+            <main class="table" id="customers_table">
+              <section class="table__header">
+                  <h1>Not invoiced </h1>
+                 
+                
+                 
+              </section>
+              <section class="table__body">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th> SL <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Area <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Category <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Email Subject <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Client <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Attention <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Site Eng <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Approved By <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Complain registered  date <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Approved Date <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Approved price. <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Quotation Ref <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> QT Date <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> UBS No <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> property <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> unit <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Descriptions <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> AED <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Status  <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> SR date <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> LPO  <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> LPO  Ref <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Invoice Ref# <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Invoice <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> REMARK <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Email LPO <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Note <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Edit <span class="icon-arrow">&UpArrow;</span></th>
+                              <th> Delete <span class="icon-arrow">&UpArrow;</span></th>
+  
+                              
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in not_invoiced_data %}
+                          <tr>
+                            <td> <strong>{{item.id}} </strong></td>
+                              <td> <strong>{{item.Area}} </strong></td>
+                              <td> <strong>{{item.Category}} </strong></td>
+                              <td> <strong>{{item.EmailSubject}} </strong></td>
+                              <td> <strong>{{item.Client}} </strong></td>
+                              <td> <strong>{{item.Attention}} </strong></td>
+                              <td> <strong>{{item.SiteEng}} </strong></td>
+                              <td> <strong>{{item.ApprovedBy}} </strong></td>
+                              <td> <strong>{{item.registereddate}} </strong></td>
+                              <td> <strong>{{item.ApprovedDate}} </strong></td>
+                              <td> <strong>{{item.Approvedprice}} </strong></td>
+                              <td> <strong>{{item.QuotationRef}} </strong></td>
+                              <td> <strong>{{item.QTDate}} </strong></td>
+                              <td> <strong>{{item.UBSNo}} </strong></td>
+                              <td> <strong>{{item.property}} </strong></td>
+                              <td> <strong>{{item.unit}} </strong></td>
+                              <td> <strong>{{item.Descriptions}} </strong></td>
+                              <td> <strong>{{item.AED}} </strong></td>
+                              <td> <strong>{{item.Status}} </strong></td>
+                              <td> <strong>{{item.SRdate}} </strong></td>
+                              <td> <strong>{{item.LPO}} </strong></td>
+                              <td> <strong>{{item.LPORef}} </strong></td>
+                              <td> <strong>{{item.InvoiceRef}} </strong></td>
+                              <td> <strong>{{item.Invoice}} </strong></td>
+                              <td> <strong>{{item.REMARK}} </strong></td>
+                              <td> <strong>{{item.EmailLPO}} </strong></td>
+                              <td> <strong>{{item.Note}} </strong></td>
+                              <td><strong><a href="{% url 'edit' item.id %}">Edit</a></strong></td>
+                                
+                               <td> <strong><a href="{% url 'delete' item.id %}">Delete</a></strong>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </section>
+          </main>
+          </div>
+          <!-- main-panel ends -->
+        </div>
+        <br>
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center ">
+            <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span> -->
+            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+          </div>
+        </footer>
+        <!-- page-body-wrapper ends -->
+      </div>
+     
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+      <script src="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="{% static 'js/off-canvas.js' %}"></script>
+      <script src="{% static 'js/template.js' %}"></script>
+      <script src="{% static 'js/settings.js' %}"></script>
+      <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+      <script src="{% static 'js/todolist.js' %}"></script>
+
+<script>
+    // Add this script to handle date selection and AJAX request
+$(function() {
+    $("#datepicker-from").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+    $("#datepicker-to").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+
+    $("#toDate, #fromDate").change(function() {
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+
+        $.ajax({
+            url: "/not_invoiced_tasks_filter/",
+            type: "GET",
+            data: {
+                from_date: fromDate,
+                to_date: toDate
+            },
+            success: function(data) {
+                $("#customers_table").html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
